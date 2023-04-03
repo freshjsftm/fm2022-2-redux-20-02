@@ -5,9 +5,8 @@ export const getAllUsers = createAsyncThunk(
   async (params={}, thunkAPI) => {
     try {
       const { dispatch } = thunkAPI;
-      const data = await fetch("https://randomuser.me/api/?results=3").then((res) =>
-        res.json()
-      );
+      const data = await fetch("https://randomuser.me/api/?results=3")
+      .then((res) => res.json());
       //return data;
       dispatch(loadUsers(data.results));
     } catch (error) {}

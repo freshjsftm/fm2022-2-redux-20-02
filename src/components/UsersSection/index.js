@@ -1,12 +1,13 @@
-import React, {useEffect} from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../store/usersSlice";
 
 const UsersSection = (props) => {
-  const { users, error, isFetching, loadedUsers } = props;
-  useEffect(()=>{
-    loadedUsers()
-  }, [loadedUsers])
+  const { users, error, isFetching } = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllUsers({ page: 0 }));
+  }, [dispatch]);
   return (
     <section>
       <h2>Users List</h2>
@@ -19,9 +20,4 @@ const UsersSection = (props) => {
   );
 };
 
-const mapStateToProps = (state) => state.users; //initialState || state from usersSlice
-const mapDispatchToProps = (dispatch) => ({
-  loadedUsers: (params)=>dispatch(getAllUsers(params))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersSection);
+export default UsersSection;
